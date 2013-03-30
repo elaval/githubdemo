@@ -69,11 +69,17 @@
     </div>
 
     <script>
+
+
     document.addEventListener('deviceready', deviceready, false);
     function deviceready() {
         // This is an event handler function, which means the scope is the event.
         // So, we must explicitly called `app.report()` instead of `this.report()`.
-        alert('hydrated deviceready v1.1');
+        alert('hydrated deviceready v1.2');
+
+            if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+            if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+            if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
 
         function getLoginStatus() {
                 FB.getLoginStatus(function(response) {
@@ -84,7 +90,7 @@
                                   }
                                   });
             }
-            
+
         getLoginStatus();
 
     };
