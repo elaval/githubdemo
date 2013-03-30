@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="css/jquery_mobile/jquery.mobile-1.1.1.min.css" />
     <link rel="stylesheet" href="css/mineduc.css" />
     <script type="text/javascript" src="phonegap.js"></script>
+    <script src="cdv-plugin-fb-connect.js"></script>
+    <script src="facebook-js-sdk.js"></script>
 
     
     <!-- Carga de Require con archivo main.js (este a su vez llama a función Initialize en módulo Apps)-->
@@ -70,6 +72,10 @@
         // This is an event handler function, which means the scope is the event.
         // So, we must explicitly called `app.report()` instead of `this.report()`.
         alert('hydrated deviceready');
+
+            if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+            if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+            if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
     };
     </script>
 
