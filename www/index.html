@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Hello World</title>
+
+    <link rel="stylesheet" href="css/jquery_mobile/jquery.mobile-1.1.1.min.css" />
+    <link rel="stylesheet" href="css/mineduc.css" />
+    <script type="text/javascript" src="phonegap.js"></script>
+
+    
+    <!-- Carga de Require con archivo main.js (este a su vez llama a función Initialize en módulo Apps)-->
+    <script src="js/libs/require/require.js" data-main="js/main"></script>
+    
+
+</head>
+<body>
+    
+    <!-- Page Home -->
+    <div data-role="page" id="home" data-theme="c">
+
+        <!-- /header -->
+        <div data-role="header"  data-position='fixed' data-theme="f">
+            <div class="logo-header" id"headerIndex"><h1>Test TIDE</h1></div>
+        </div>
+        <!-- /header -->
+
+        <!-- content -->
+        <div data-role="content" id='mmPrincipal'>
+            <ul id="main_menu_list" data-role="listview" data-theme="c">
+                <!-- Los elementos de la lista se generan en forma dinámica  -->
+            </ul>
+        </div>
+        <!-- /content -->
+        
+        <!-- footer -->
+        <div data-role="footer"  data-theme="c"  data-position="fixed">       
+            <a href="#acerca_de" data-role="button" onclick="limpiarMensaje();" class="ui-btn-right" data-transition="none" data-icon="info" data-rel="dialog">Acerca de</a>
+        </div>
+        <!-- /footer -->
+
+
+    </div>
+
+    <script>
+    document.addEventListener('deviceready', deviceready, false);
+    function deviceready() {
+        // This is an event handler function, which means the scope is the event.
+        // So, we must explicitly called `app.report()` instead of `this.report()`.
+        alert('deviceready');
+    };
+    </script>
+
+</body>
+</html>
+
+
