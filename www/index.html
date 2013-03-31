@@ -80,15 +80,30 @@
             if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
             if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
 
+        function login() {
+                FB.login(
+                         function(response) {
+                         if (response.session) {
+                         alert('logged in');
+                         } else {
+                         alert('not logged in');
+                         }
+                         },
+                         { scope: "email" }
+                         );
+            }
+
         function getLoginStatus() {
                 FB.getLoginStatus(function(response) {
                                   if (response.status == 'connected') {
                                   alert('logged in');
                                   } else {
                                   alert('not logged in');
+                                  login();
                                   }
                                   });
             }
+
 
         FB.init({ appId: "457289524341707", nativeInterface: CDV.FB, useCachedDialogs: false });
 
