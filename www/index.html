@@ -28,8 +28,10 @@
     <link rel="stylesheet" href="css/jquery_mobile/jquery.mobile-1.1.1.min.css" />
     <link rel="stylesheet" href="css/mineduc.css" />
     <script type="text/javascript" src="phonegap.js"></script>
+
     <script type="text/javascript" src="cdv-plugin-fb-connect.js"></script>
     <script type="text/javascript" src="facebook-js-sdk.js"></script>
+
 
 
     
@@ -75,7 +77,7 @@
     function deviceready() {
         // This is an event handler function, which means the scope is the event.
         // So, we must explicitly called `app.report()` instead of `this.report()`.
-        alert('hydrated deviceready v1.2');
+        alert('hydrated deviceready v1.3');
 
         if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
         if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
@@ -127,7 +129,10 @@
             FB.getLoginStatus(function(response) {
               if (response.status == 'connected') {
                   alert('logged in');
-                  me();
+                  FB.api('/me', function(response) {
+                    alert(response.name);
+                    });
+                  //me();
               } else {
                   alert('not logged in');
                   login();
@@ -143,7 +148,9 @@ FB.init({ appId: "457289524341707", nativeInterface: CDV.FB, useCachedDialogs: f
 getLoginStatus();
 
 };
-</script>
+
+
+
 
 
 
