@@ -30,17 +30,17 @@
     <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="cdv-plugin-fb-connect.js"></script>
     <script type="text/javascript" src="facebook-js-sdk.js"></script>
- 
+
 
     
     <!-- Carga de Require con archivo main.js (este a su vez llama a función Initialize en módulo Apps)
     <script src="js/codigo.js"></script>
-    -->
-    
+-->
+
 
 </head>
 <body>
-    
+
     <!-- Page Home -->
     <div data-role="page" id="home" data-theme="c">
 
@@ -55,6 +55,7 @@
             <ul id="main_menu_list" data-role="listview" data-theme="c">
                 <!-- Los elementos de la lista se generan en forma dinámica  -->
             </ul>
+            <div id="data"></div>
         </div>
         <!-- /content -->
         
@@ -76,41 +77,73 @@
         // So, we must explicitly called `app.report()` instead of `this.report()`.
         alert('hydrated deviceready v1.2');
 
-            if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
-            if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-            if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+        if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+        if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+        if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+
+        function me() {
+            FB.api('/me/friends', { fields: 'id, name, picture' },  function(response) {
+               if (response.error) {
+                   alert(JSON.stringify(response.error));
+               } else {
+                   var data = document.getElementById('data');
+                   fdata=response.data;
+                   console.log("fdata: "+fdata);
+                   response.data.forEach(function(item) {
+                     var d = document.createElement('div');
+                     d.innerHTML = "<img src="+item.picture+"/>"+item.name;
+                     data.appendChild(d);
+                 });
+               }
+               var friends = response.data;
+               console.log(friends.length); 
+               for (var k = 0; k < friends.length && k < 200; k++) {
+                var friend = friends[k];
+                var index = 1;
+
+                friendIDs[k] = friend.id;
+                        //friendsInfo[k] = friend;
+                    }
+                    console.log("friendId's: "+friendIDs);
+                });
+        }
+
 
         function login() {
-                FB.login(
-                         function(response) {
-                         if (response.session) {
-                         alert('logged in');
-                         } else {
-                         alert('not logged in');
-                         }
-                         },
-                         { scope: "email" }
-                         );
-            }
+            FB.login(
+               function(response) {
+                   if (response.session) {
+                       alert('logged in');
+                       me();
+                   } else {
+                       alert('not logged in');
+                   }
+               },
+               { scope: "email" }
+               );
+        }
 
         function getLoginStatus() {
-                FB.getLoginStatus(function(response) {
-                                  if (response.status == 'connected') {
-                                  alert('logged in');
-                                  } else {
-                                  alert('not logged in');
-                                  login();
-                                  }
-                                  });
-            }
+            FB.getLoginStatus(function(response) {
+              if (response.status == 'connected') {
+                  alert('logged in');
+                  me();
+              } else {
+                  alert('not logged in');
+                  login();
+              }
+          });
+        }
 
 
-        FB.init({ appId: "457289524341707", nativeInterface: CDV.FB, useCachedDialogs: false });
 
-        getLoginStatus();
 
-    };
-    </script>
+FB.init({ appId: "457289524341707", nativeInterface: CDV.FB, useCachedDialogs: false });
+
+getLoginStatus();
+
+};
+</script>
 
 
 
